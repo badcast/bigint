@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="40.411999mm"
+   height="11.133mm"
+   viewBox="0 0 40.411999 11.133"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   sodipodi:docname="bigint-logo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="5.3308642"
+     inkscape:cx="117.80454"
+     inkscape:cy="48.866373"
+     inkscape:window-width="1920"
+     inkscape:window-height="1014"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Слой 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g2336"
+       transform="translate(92.739334,-21.456724)">
+      <rect
+         style="fill:#f2f2f2;fill-opacity:1;stroke:none;stroke-width:0;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:6.6;stroke-dasharray:none;stroke-dashoffset:7.79533"
+         id="rect1938"
+         width="40.412006"
+         height="11.132577"
+         x="-92.739334"
+         y="21.456724" />
+      <text
+         xml:space="preserve"
+         style="font-size:8.81944px;fill:#800000;stroke:none;stroke-width:0;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:6.6;stroke-dasharray:none;stroke-dashoffset:7.79533"
+         x="-92.308167"
+         y="29.27309"
+         id="text236"><tspan
+           sodipodi:role="line"
+           id="tspan234"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Cascadia Code PL';-inkscape-font-specification:'Cascadia Code PL';fill:#008000;fill-opacity:1;stroke:none;stroke-width:0;stroke-dasharray:none"
+           x="-92.308167"
+           y="29.27309"><tspan
+             style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:'Cascadia Code PL';-inkscape-font-specification:'Cascadia Code PL Light';stroke:none;stroke-width:0;stroke-dasharray:none"
+             id="tspan1362">Bigint</tspan><tspan
+             style="fill:#666666;stroke:none;stroke-width:0;stroke-dasharray:none"
+             id="tspan1154">::</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:2.11667px;line-height:0;font-family:'Cascadia Code PL';-inkscape-font-specification:'Cascadia Code PL Light';fill:#666666;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:6.6;stroke-dashoffset:7.79533"
+         x="-62.361694"
+         y="32.096348"
+         id="text1366"><tspan
+           sodipodi:role="line"
+           id="tspan1364"
+           style="font-size:2.11667px;line-height:0px;text-align:center;baseline-shift:baseline;text-anchor:middle;fill:#008080;stroke-width:1"
+           x="-62.361694"
+           y="32.096348">C++11 and newer</tspan></text>
+    </g>
+  </g>
+</svg>
