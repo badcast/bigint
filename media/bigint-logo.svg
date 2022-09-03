@@ -24,9 +24,9 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="2.6654321"
-     inkscape:cx="69.407133"
-     inkscape:cy="67.343678"
+     inkscape:zoom="7.5389804"
+     inkscape:cx="145.11246"
+     inkscape:cy="58.827583"
      inkscape:window-width="1920"
      inkscape:window-height="1014"
      inkscape:window-x="0"
@@ -60,14 +60,14 @@
       <text
          xml:space="preserve"
          style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:2.11667px;line-height:0;font-family:'Cascadia Code PL';-inkscape-font-specification:'Cascadia Code PL Light';fill:#666666;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:6.6;stroke-dashoffset:7.79533"
-         x="-62.361694"
-         y="32.096348"
+         x="-62.277046"
+         y="32.044781"
          id="text1366"><tspan
            sodipodi:role="line"
            id="tspan1364"
            style="font-size:2.11667px;line-height:0px;text-align:center;baseline-shift:baseline;text-anchor:middle;fill:#008080;stroke-width:1"
-           x="-62.361694"
-           y="32.096348">C++11 and newer</tspan></text>
+           x="-62.277046"
+           y="32.044781">C++11 and newer</tspan></text>
     </g>
   </g>
 </svg>
