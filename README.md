@@ -8,10 +8,10 @@
 </h1>
 
 
-# Bigint
+# BigInt
 <h5>Big Integer derived from GMP MP</h5>
 
-## Bigint derived from GMP MP. And it doesn't require additional dependencies. Bigint is a simplified version. Convenient syntax, OOP makes the code easy to read.
+## BigInt derived from GMP MP. And it doesn't require additional dependencies. Bigint is a simplified version. Convenient syntax, OOP makes the code easy to read.
 
 ## Usage
 
@@ -20,8 +20,10 @@
 #include <iostream>
 #include "bigint.hpp"
 
+using namespace bigint; 
+
 int main(){
-	Bigint a, b, c;
+	BigInt a, b, c;
 	a = 1024;
 	b = "1024"; 
 	
@@ -30,7 +32,7 @@ int main(){
 	
 	...
 	
-	c = Bigint::pow(a, b);
+	c = BigInt::pow(a, b);
 	std::cout << "Expower a ^ b = " << c << std::endl;
 	
 	return 0;
