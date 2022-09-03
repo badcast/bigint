@@ -46,6 +46,8 @@ class BigInt {
    public:
     class divide_by_zero : public std::exception {};
 
+    BigInt() = default;
+
     _bigint_init(const mpz_class&);
     _bigint_init(const std::string&);
     _bigint_init(const char*);
@@ -155,6 +157,7 @@ void BigInt::swap(BigInt& rhs) { this->gmp_mpz.swap(rhs.gmp_mpz); }
 mpz_class* BigInt::get_mpz_class() { return &gmp_mpz; }
 
 BigInt BigInt::operator-() const { return BigInt(-this->gmp_mpz); }
+
 BigInt& BigInt::operator--() {
     --gmp_mpz;
     return *this;
@@ -236,10 +239,10 @@ bool operator!=(const BigInt& lhs, const BigInt& rhs) { return lhs.gmp_mpz != rh
 
 /**************** I/O operators ****************/
 
-// these should (and will) be provided separately
 inline std::ostream& operator<<(std::ostream& output, const BigInt& expr) { return output << expr.gmp_mpz; }
 inline std::istream& operator>>(std::istream& input, BigInt& expr) { return input >> expr.gmp_mpz; }
 
+/****************   functions   ****************/
 BigInt BigInt::factorial(const BigInt& base) { return BigInt(::factorial(base.gmp_mpz)); }
 BigInt BigInt::fibonacci(const BigInt& base) { return BigInt(::fibonacci(base.gmp_mpz)); }
 
@@ -258,4 +261,4 @@ void swap(BigInt& lhs, BigInt& rhs) { lhs.swap(rhs); }
 
 #undef _bigint_init
 #undef _bigint_operator
-}  // namespace badcast
+}  // namespace bigint
