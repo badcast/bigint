@@ -9,5 +9,5 @@ set(CMAKE_CXX_FLAGS "-lgmpxx -lgmp")
 
 #find_package(gmp REQUIRED)
 
-add_executable(bigint main.cpp)
+add_executable(bigint bigint.hpp main.cpp)
 
