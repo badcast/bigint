@@ -249,7 +249,7 @@ bool operator!=(const Bigint& lhs, const Bigint& rhs) { return lhs.gmp_mpz != rh
 inline std::ostream& operator<<(std::ostream& output, const Bigint& expr) { return output << expr.gmp_mpz; }
 inline std::istream& operator>>(std::istream& input, Bigint& expr) { return input >> expr.gmp_mpz; }
 
-Bigint Bigint::factorial(const Bigint& base, long l) { return Bigint(::factorial(base.gmp_mpz, l)); }
+Bigint Bigint::factorial(const Bigint& base, long l) { return ::factorial(base.gmp_mpz, l)); }
 Bigint Bigint::factorial(const Bigint& base, unsigned long l) { return ::factorial(base.gmp_mpz, l); }
 Bigint Bigint::fibonacci(const Bigint& base, long l) { return ::fibonacci(base.gmp_mpz, l); }
 Bigint Bigint::fibonacci(const Bigint& base, unsigned long l) { return ::fibonacci(base.gmp_mpz, l); }
