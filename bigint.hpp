@@ -9,17 +9,14 @@
 // main class for Big Integer
 class Bigint;
 
-#define _bigint_operator(type)                          \
-    Bigint::operator type() {                           \
-        if constexpr (std::is_unsigned<type>()) {       \
-            return static_cast<type>(gmp_mpz.get_ui()); \
-        } else {                                        \
-            return gmp_mpz.get_si();                    \
-        }                                               \
-    }
+#define _bigint_operator_ui(type) \
+    Bigint::operator type() { return static_cast<type>(gmp_mpz.get_ui()); }
+
+#define _bigint_operator_si(type) \
+    Bigint::operator type() { return gmp_mpz.get_si(); }
 
 #define _bigint_init(type) \
-    Bigint::Bigint(const type& value) : gmp_mpz(value) {}
+    Bigint(type value) : gmp_mpz(value) {}
 
 const Bigint operator+(const Bigint&, const Bigint&);
 const Bigint operator-(const Bigint&, const Bigint&);
@@ -47,17 +44,17 @@ class Bigint {
    public:
     class divide_by_zero : public std::exception {};
 
-    Bigint(const mpz_class&);
-
-    Bigint(const std::string&);
-    Bigint(const char&);
-    Bigint(const short&);
-    Bigint(const int&);
-    Bigint(const long&);
-    Bigint(const unsigned char&);
-    Bigint(const unsigned short&);
-    Bigint(const unsigned int&);
-    Bigint(const unsigned long&);
+    _bigint_init(const mpz_class&);
+    _bigint_init(const std::string&);
+    _bigint_init(const char*);
+    _bigint_init(const char);
+    _bigint_init(const short);
+    _bigint_init(const int);
+    _bigint_init(const long);
+    _bigint_init(const unsigned char);
+    _bigint_init(const unsigned short);
+    _bigint_init(const unsigned int);
+    _bigint_init(const unsigned long);
 
     mpz_class* get_mpz_class();
 
@@ -115,14 +112,11 @@ class Bigint {
 
     operator float();
     operator double();
-    operator long double();
 
     // static members
 
-    static Bigint factorial(const Bigint& base, long l);
-    static Bigint fibonacci(const Bigint& base, long l);
-    static Bigint factorial(const Bigint& base, unsigned long l);
-    static Bigint fibonacci(const Bigint& base, unsigned long l);
+    static Bigint factorial(const Bigint& base);
+    static Bigint fibonacci(const Bigint& base);
 
     static Bigint abs(const Bigint& base);
     static Bigint nabs(const Bigint& base);
@@ -134,30 +128,20 @@ class Bigint {
     friend inline std::istream& operator>>(std::istream& i, Bigint& expr);
 };
 
-_bigint_init(std::string);
-_bigint_init(mpz_class);
-_bigint_init(char);
-_bigint_init(short);
-_bigint_init(int);
-_bigint_init(long);
-_bigint_init(unsigned char);
-_bigint_init(unsigned short);
-_bigint_init(unsigned int);
-_bigint_init(unsigned long);
+_bigint_operator_si(char);
+_bigint_operator_si(short);
+_bigint_operator_si(int);
+_bigint_operator_si(long);
+_bigint_operator_si(long long);
+_bigint_operator_ui(unsigned char);
+_bigint_operator_ui(unsigned short);
+_bigint_operator_ui(unsigned int);
+_bigint_operator_ui(unsigned long);
+_bigint_operator_ui(unsigned long long);
 
-_bigint_operator(char);
-_bigint_operator(short);
-_bigint_operator(int);
-_bigint_operator(long);
-_bigint_operator(long long);
-_bigint_operator(unsigned char);
-_bigint_operator(unsigned short);
-_bigint_operator(unsigned int);
-_bigint_operator(unsigned long);
-_bigint_operator(unsigned long long);
-_bigint_operator(float);
-_bigint_operator(double);
-_bigint_operator(long double);
+Bigint::operator float() { return gmp_mpz.get_d(); }
+
+Bigint::operator double() { return gmp_mpz.get_d(); }
 
 Bigint::operator bool() { return gmp_mpz.operator bool(); }
 
@@ -249,10 +233,8 @@ bool operator!=(const Bigint& lhs, const Bigint& rhs) { return lhs.gmp_mpz != rh
 inline std::ostream& operator<<(std::ostream& output, const Bigint& expr) { return output << expr.gmp_mpz; }
 inline std::istream& operator>>(std::istream& input, Bigint& expr) { return input >> expr.gmp_mpz; }
 
-Bigint Bigint::factorial(const Bigint& base, long l) { return ::factorial(base.gmp_mpz, l)); }
-Bigint Bigint::factorial(const Bigint& base, unsigned long l) { return ::factorial(base.gmp_mpz, l); }
-Bigint Bigint::fibonacci(const Bigint& base, long l) { return ::fibonacci(base.gmp_mpz, l); }
-Bigint Bigint::fibonacci(const Bigint& base, unsigned long l) { return ::fibonacci(base.gmp_mpz, l); }
+Bigint Bigint::factorial(const Bigint& base) { return Bigint(::factorial(base.gmp_mpz)); }
+Bigint Bigint::fibonacci(const Bigint& base) { return Bigint(::fibonacci(base.gmp_mpz)); }
 
 Bigint Bigint::abs(const Bigint& base) {}
 Bigint Bigint::nabs(const Bigint& base) {}

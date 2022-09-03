@@ -6,7 +6,9 @@ using namespace std;
 int main() {
     Bigint h = 3;
 
-    h = Bigint::factorial(Bigint("23059823482348239084320942399432482309489023840239840923"), 10000);
+    h = Bigint::factorial("3948756");
+
+    mpz_class v;
 
     cout << "result " << h << "\n";
     return 0;
