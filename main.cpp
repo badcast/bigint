@@ -2,14 +2,15 @@
 
 #include "bigint.hpp"
 
+#include <math.h>
+
 using namespace std;
 int main() {
-    Bigint h = 3;
+    Bigint::BigInt a = 1, b =2;
 
-    h = Bigint::factorial("3948756");
+    int cc = 1;
+    int h = -cc;
 
-    mpz_class v;
 
-    cout << "result " << h << "\n";
     return 0;
 }
