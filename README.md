@@ -32,7 +32,7 @@ int main(){
 	
 	...
 	
-	c = Bigint::pow(a, b);
+	c = BigInt::pow(a, b);
 	std::cout << "Expower a ^ b = " << c << std::endl;
 	
 	return 0;
