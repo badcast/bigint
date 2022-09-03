@@ -1,10 +1,12 @@
 #pragma once
+
 #include <gmpxx.h>
 
 #include <cstdio>
 #include <string>
 #include <type_traits>
 
+// main class for Big Integer
 class Bigint;
 
 #define _bigint_operator(type)                          \
@@ -23,15 +25,19 @@ const Bigint operator+(const Bigint&, const Bigint&);
 const Bigint operator-(const Bigint&, const Bigint&);
 const Bigint operator/(const Bigint&, const Bigint&);
 const Bigint operator*(const Bigint&, const Bigint&);
+const Bigint operator%(const Bigint&, const Bigint&);
+const Bigint operator<<(const Bigint&, const Bigint&);
+const Bigint operator>>(const Bigint&, const Bigint&);
+const Bigint operator^(const Bigint&, const Bigint&);
+const Bigint operator&(const Bigint&, const Bigint&);
+const Bigint operator|(const Bigint&, const Bigint&);
+
 bool operator<(const Bigint&, const Bigint&);
 bool operator>(const Bigint&, const Bigint&);
 bool operator==(const Bigint&, const Bigint&);
 bool operator!=(const Bigint&, const Bigint&);
 
-template <class T, class U>
 inline std::ostream& operator<<(std::ostream& o, const Bigint& expr);
-
-template <class T>
 inline std::istream& operator>>(std::istream& i, Bigint& expr);
 
 class Bigint {
@@ -53,18 +59,41 @@ class Bigint {
     Bigint(const unsigned int&);
     Bigint(const unsigned long&);
 
-    // operators
+    mpz_class* get_mpz_class();
+
+    /* ***operators*** */
 
     // unary operators
-    // const bigint operator-();
-    // const bigint& operator--();
-    // const bigint& operator++();
+    const Bigint operator-();
+    Bigint& operator--();
+    const Bigint operator--(int);
+    Bigint& operator++();
+    const Bigint operator++(int);
+    Bigint operator~();
+
+    Bigint& operator+=(const Bigint&);
+    Bigint& operator-=(const Bigint&);
+    Bigint& operator/=(const Bigint&);
+    Bigint& operator*=(const Bigint&);
+    Bigint& operator<<=(const long);
+    Bigint& operator>>=(const long);
+    Bigint& operator&=(const Bigint&);
+    Bigint& operator|=(const Bigint&);
+    Bigint& operator^=(const Bigint&);
+    Bigint& operator%=(const Bigint&);
 
     // operators
     friend const Bigint operator+(const Bigint&, const Bigint&);
     friend const Bigint operator-(const Bigint&, const Bigint&);
     friend const Bigint operator/(const Bigint&, const Bigint&);
     friend const Bigint operator*(const Bigint&, const Bigint&);
+    friend const Bigint operator%(const Bigint&, const Bigint&);
+    friend const Bigint operator<<(const Bigint&, const Bigint&);
+    friend const Bigint operator>>(const Bigint&, const Bigint&);
+    friend const Bigint operator^(const Bigint&, const Bigint&);
+    friend const Bigint operator&(const Bigint&, const Bigint&);
+    friend const Bigint operator|(const Bigint&, const Bigint&);
+
     friend bool operator<(const Bigint&, const Bigint&);
     friend bool operator>(const Bigint&, const Bigint&);
     friend bool operator==(const Bigint&, const Bigint&);
@@ -82,29 +111,27 @@ class Bigint {
     operator unsigned long();
     operator unsigned long long();
 
+    explicit operator bool();
+
     operator float();
     operator double();
     operator long double();
 
     // static members
-    template <typename L>
-    static Bigint factorial(const Bigint& base, L l);
-    template <typename L>
-    static Bigint fibonacci(const Bigint& base, L l);
+
+    static Bigint factorial(const Bigint& base, long l);
+    static Bigint fibonacci(const Bigint& base, long l);
+    static Bigint factorial(const Bigint& base, unsigned long l);
+    static Bigint fibonacci(const Bigint& base, unsigned long l);
+
     static Bigint abs(const Bigint& base);
     static Bigint nabs(const Bigint& base);
     static mpf_class sqrt(const Bigint& root);
     static Bigint pow(const Bigint& base, int power);
 
-    template <class T, class U>
     friend inline std::ostream& operator<<(std::ostream& o, const Bigint& expr);
 
-    template <class T>
     friend inline std::istream& operator>>(std::istream& i, Bigint& expr);
-
-    //  inline static const bigint zero(0);
-    //  inline static const bigint one(1);
-    //  inline static const bigint minusOne(-1);
 };
 
 _bigint_init(std::string);
@@ -132,10 +159,85 @@ _bigint_operator(float);
 _bigint_operator(double);
 _bigint_operator(long double);
 
+Bigint::operator bool() { return gmp_mpz.operator bool(); }
+
+mpz_class* Bigint::get_mpz_class() { return &gmp_mpz; }
+
+const Bigint Bigint::operator-() { return Bigint(-this->gmp_mpz); }
+Bigint& Bigint::operator--() {
+    --gmp_mpz;
+    return *this;
+}
+const Bigint Bigint::operator--(int) {
+    Bigint state = *this;
+    --gmp_mpz;
+    return state;
+}
+Bigint& Bigint::operator++() {
+    ++gmp_mpz;
+    return *this;
+}
+const Bigint Bigint::operator++(int) {
+    Bigint state = *this;
+    ++gmp_mpz;
+    return state;
+}
+Bigint Bigint::operator~() { return Bigint(gmp_mpz); }
+
+Bigint& Bigint::operator+=(const Bigint& rhs) {
+    gmp_mpz += rhs.gmp_mpz;
+    return *this;
+}
+Bigint& Bigint::operator-=(const Bigint& rhs) {
+    gmp_mpz -= rhs.gmp_mpz;
+    return *this;
+}
+Bigint& Bigint::operator/=(const Bigint& rhs) {
+    gmp_mpz /= rhs.gmp_mpz;
+    return *this;
+}
+Bigint& Bigint::operator*=(const Bigint& rhs) {
+    gmp_mpz *= rhs.gmp_mpz;
+    return *this;
+}
+
+Bigint& Bigint::operator<<=(const long rhs) {
+    gmp_mpz <<= rhs;
+    return *this;
+}
+Bigint& Bigint::operator>>=(const long rhs) {
+    gmp_mpz >>= rhs;
+    return *this;
+}
+Bigint& Bigint::operator&=(const Bigint& rhs) {
+    gmp_mpz &= rhs.gmp_mpz;
+    return *this;
+}
+Bigint& Bigint::operator|=(const Bigint& rhs) {
+    gmp_mpz |= rhs.gmp_mpz;
+    return *this;
+}
+Bigint& Bigint::operator^=(const Bigint& rhs) {
+    gmp_mpz ^= rhs.gmp_mpz;
+    return *this;
+}
+Bigint& Bigint::operator%=(const Bigint& rhs) {
+    gmp_mpz %= rhs.gmp_mpz;
+    return *this;
+}
+
 const Bigint operator+(const Bigint& lhs, const Bigint& rhs) { return Bigint(lhs.gmp_mpz + rhs.gmp_mpz); }
 const Bigint operator-(const Bigint& lhs, const Bigint& rhs) { return Bigint(lhs.gmp_mpz - rhs.gmp_mpz); }
 const Bigint operator/(const Bigint& lhs, const Bigint& rhs) { return Bigint(lhs.gmp_mpz / rhs.gmp_mpz); }
 const Bigint operator*(const Bigint& lhs, const Bigint& rhs) { return Bigint(lhs.gmp_mpz * rhs.gmp_mpz); }
+const Bigint operator%(const Bigint& lhs, const Bigint& rhs) { return Bigint(lhs.gmp_mpz % rhs.gmp_mpz); }
+
+const Bigint operator<<(const Bigint& lhs, const Bigint& rhs) { return Bigint(lhs.gmp_mpz << rhs.gmp_mpz); }
+const Bigint operator>>(const Bigint& lhs, const Bigint& rhs) { return Bigint(lhs.gmp_mpz >> rhs.gmp_mpz); }
+const Bigint operator^(const Bigint& lhs, const Bigint& rhs) { return Bigint(lhs.gmp_mpz ^ rhs.gmp_mpz); }
+const Bigint operator&(const Bigint& lhs, const Bigint& rhs) { return Bigint(lhs.gmp_mpz & rhs.gmp_mpz); }
+const Bigint operator|(const Bigint& lhs, const Bigint& rhs) { return Bigint(lhs.gmp_mpz | rhs.gmp_mpz); }
+
 bool operator<(const Bigint& lhs, const Bigint& rhs) { return lhs.gmp_mpz < rhs.gmp_mpz; }
 bool operator>(const Bigint& lhs, const Bigint& rhs) { return lhs.gmp_mpz > rhs.gmp_mpz; }
 bool operator==(const Bigint& lhs, const Bigint& rhs) { return lhs.gmp_mpz == rhs.gmp_mpz; }
@@ -144,28 +246,17 @@ bool operator!=(const Bigint& lhs, const Bigint& rhs) { return lhs.gmp_mpz != rh
 /**************** I/O operators ****************/
 
 // these should (and will) be provided separately
+inline std::ostream& operator<<(std::ostream& output, const Bigint& expr) { return output << expr.gmp_mpz; }
+inline std::istream& operator>>(std::istream& input, Bigint& expr) { return input >> expr.gmp_mpz; }
 
-template <class T, class U>
-inline std::ostream& operator<<(std::ostream& o, const Bigint& expr) {
-    return o << expr.gmp_mpz;
-}
+Bigint Bigint::factorial(const Bigint& base, long l) { return Bigint(::factorial(base.gmp_mpz, l)); }
+Bigint Bigint::factorial(const Bigint& base, unsigned long l) { return ::factorial(base.gmp_mpz, l); }
+Bigint Bigint::fibonacci(const Bigint& base, long l) { return ::fibonacci(base.gmp_mpz, l); }
+Bigint Bigint::fibonacci(const Bigint& base, unsigned long l) { return ::fibonacci(base.gmp_mpz, l); }
 
-template <class T>
-inline std::istream& operator>>(std::istream& i, Bigint& expr) {
-    return i >> expr.gmp_mpz;
-}
-
-template <typename L>
-Bigint Bigint::factorial(const Bigint& base, L l) {
-    return ::factorial(base.gmp_mpz, l);
-}
-template <typename L>
-Bigint Bigint::fibonacci(const Bigint& base, L l) {
-    return ::fibonacci(base.gmp_mpz, l);
-}
 Bigint Bigint::abs(const Bigint& base) {}
 Bigint Bigint::nabs(const Bigint& base) {}
-mpf_class Bigint::sqrt(const Bigint& root) {}
+mpf_class Bigint::sqrt(const Bigint& root) { return ::sqrt(root.gmp_mpz); }
 Bigint Bigint::pow(const Bigint& base, int power) {}
 
 #undef _bigint_init
