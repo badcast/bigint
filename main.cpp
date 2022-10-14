@@ -2,15 +2,14 @@
 
 #include "bigint.hpp"
 
-#include <math.h>
+using namespace bigint;
 
-using namespace std;
 int main() {
-    Bigint::BigInt a = 1, b =2;
+    BigInt a;
+    mpz_class cc = 0;
+    a = 1;
 
-    int cc = 1;
-    int h = -cc;
-
+    auto c = a + b;
 
     return 0;
 }
