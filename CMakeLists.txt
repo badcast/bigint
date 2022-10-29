@@ -7,7 +7,4 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_CXX_FLAGS "-lgmpxx -lgmp")
 
-#find_package(gmp REQUIRED)
-
-add_executable(bigint bigint.hpp main.cpp)
-
+add_executable(bigint-test bigint.hpp main.cpp)

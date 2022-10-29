@@ -1,15 +1,13 @@
 #include <iostream>
-
+#include <vector>
 #include "bigint.hpp"
 
 using namespace bigint;
 
 int main() {
-    BigInt a;
-    mpz_class cc = 0;
-    a = 1;
+    BigInt a, b, c;
 
-    auto c = a + b;
+    //Do your code
 
-    return 0;
+    return (int)a;
 }
