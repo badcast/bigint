@@ -5,13 +5,9 @@
 using namespace bigint;
 
 int main() {
-    BigInt a, b;
+    BigInt a, b, c;
 
-    a = 10;
+    //Do your code
 
-    b = a + 44;
-
-    b = -1;
-
-    return 0;
+    return (int)a;
 }

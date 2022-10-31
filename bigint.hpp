@@ -11,29 +11,29 @@ namespace bigint {
 class BigInt;
 
 #define _bigint_operator_ui(type) \
-    BigInt::operator type() { return static_cast<type>(gmp_mpz.get_ui()); }
+    BigInt::operator type() const { return static_cast<type>(gmp_mpz.get_ui()); }
 
 #define _bigint_operator_si(type) \
-    BigInt::operator type() { return gmp_mpz.get_si(); }
+    BigInt::operator type() const { return static_cast<type>(gmp_mpz.get_si()); }
 
 #define _bigint_init(type) \
     BigInt(type value) : gmp_mpz(value) {}
 
-//const BigInt operator+(const BigInt&, const BigInt);
-//const BigInt operator-(const BigInt&, const BigInt&);
-//const BigInt operator/(const BigInt&, const BigInt&);
-//const BigInt operator*(const BigInt&, const BigInt&);
-//const BigInt operator%(const BigInt&, const BigInt&);
-//const BigInt operator<<(const BigInt&, const BigInt&);
-//const BigInt operator>>(const BigInt&, const BigInt&);
-//const BigInt operator^(const BigInt&, const BigInt&);
-//const BigInt operator&(const BigInt&, const BigInt&);
-//const BigInt operator|(const BigInt&, const BigInt&);
+// const BigInt operator+(const BigInt&, const BigInt);
+// const BigInt operator-(const BigInt&, const BigInt&);
+// const BigInt operator/(const BigInt&, const BigInt&);
+// const BigInt operator*(const BigInt&, const BigInt&);
+// const BigInt operator%(const BigInt&, const BigInt&);
+// const BigInt operator<<(const BigInt&, const BigInt&);
+// const BigInt operator>>(const BigInt&, const BigInt&);
+// const BigInt operator^(const BigInt&, const BigInt&);
+// const BigInt operator&(const BigInt&, const BigInt&);
+// const BigInt operator|(const BigInt&, const BigInt&);
 //
-//bool operator<(const BigInt&, const BigInt&);
-//bool operator>(const BigInt&, const BigInt&);
-//bool operator==(const BigInt&, const BigInt&);
-//bool operator!=(const BigInt&, const BigInt&);
+// bool operator<(const BigInt&, const BigInt&);
+// bool operator>(const BigInt&, const BigInt&);
+// bool operator==(const BigInt&, const BigInt&);
+// bool operator!=(const BigInt&, const BigInt&);
 
 // inline std::ostream& operator<<(std::ostream& o, const BigInt& expr);
 // inline std::istream& operator>>(std::istream& i, BigInt& expr);
@@ -60,7 +60,7 @@ class BigInt {
     _bigint_init(unsigned int);
     _bigint_init(unsigned long);
 
-    const mpz_class &get_mpz_class() const;
+    const mpz_class& get_mpz_class() const;
 
 #if defined(_STL_VECTOR_H) || defined(_GLIBCXX_VECTOR)
     std::vector<unsigned char> getBytes();
@@ -88,56 +88,25 @@ class BigInt {
     BigInt& operator^=(const BigInt&);
     BigInt& operator%=(const BigInt&);
 
-    // operators
-    //    friend const BigInt operator+(const BigInt&, const BigInt&);
-    //    friend const BigInt operator-(const BigInt&, const BigInt&);
-    //    friend const BigInt operator/(const BigInt&, const BigInt&);
-    //    friend const BigInt operator*(const BigInt&, const BigInt&);
-    //    friend const BigInt operator%(const BigInt&, const BigInt&);
-    //    friend const BigInt operator<<(const BigInt&, const BigInt&);
-    //    friend const BigInt operator>>(const BigInt&, const BigInt&);
-    //    friend const BigInt operator^(const BigInt&, const BigInt&);
-    //    friend const BigInt operator&(const BigInt&, const BigInt&);
-    //    friend const BigInt operator|(const BigInt&, const BigInt&);
-
-    //    friend bool operator<(const BigInt&, const BigInt&);
-    //    friend bool operator>(const BigInt&, const BigInt&);
-    //    friend bool operator==(const BigInt&, const BigInt&);
-    //    friend bool operator!=(const BigInt&, const BigInt&);
-
-    friend const BigInt operator+(const BigInt& lhs, const BigInt& rhs) { return BigInt(lhs.gmp_mpz + rhs.gmp_mpz); }
-    friend const BigInt operator-(const BigInt& lhs, const BigInt& rhs) { return BigInt(lhs.gmp_mpz - rhs.gmp_mpz); }
-    friend const BigInt operator/(const BigInt& lhs, const BigInt& rhs) { return BigInt(lhs.gmp_mpz / rhs.gmp_mpz); }
-    friend const BigInt operator*(const BigInt& lhs, const BigInt& rhs) { return BigInt(lhs.gmp_mpz * rhs.gmp_mpz); }
-    friend const BigInt operator%(const BigInt& lhs, const BigInt& rhs) { return BigInt(lhs.gmp_mpz % rhs.gmp_mpz); }
-
-    friend const BigInt operator<<(const BigInt& lhs, const long long& rhs) { return BigInt(lhs.gmp_mpz << rhs); }
-    friend const BigInt operator>>(const BigInt& lhs, const long long& rhs) { return BigInt(lhs.gmp_mpz >> rhs); }
-    friend const BigInt operator^(const BigInt& lhs, const BigInt& rhs) { return BigInt(lhs.gmp_mpz ^ rhs.gmp_mpz); }
-    friend const BigInt operator&(const BigInt& lhs, const BigInt& rhs) { return BigInt(lhs.gmp_mpz & rhs.gmp_mpz); }
-    friend const BigInt operator|(const BigInt& lhs, const BigInt& rhs) { return BigInt(lhs.gmp_mpz | rhs.gmp_mpz); }
-
     friend bool operator<(const BigInt& lhs, const BigInt& rhs) { return lhs.gmp_mpz < rhs.gmp_mpz; }
     friend bool operator>(const BigInt& lhs, const BigInt& rhs) { return lhs.gmp_mpz > rhs.gmp_mpz; }
     friend bool operator==(const BigInt& lhs, const BigInt& rhs) { return lhs.gmp_mpz == rhs.gmp_mpz; }
     friend bool operator!=(const BigInt& lhs, const BigInt& rhs) { return lhs.gmp_mpz != rhs.gmp_mpz; }
 
-    operator std::string();
-    operator char();
-    operator short();
-    operator int();
-    operator long();
-    operator long long();
-    operator unsigned char();
-    operator unsigned short();
-    operator unsigned int();
-    operator unsigned long();
-    operator unsigned long long();
-
-    explicit operator bool();
-
-    operator float();
-    operator double();
+    explicit operator std::string() const;
+    explicit operator char() const;
+    explicit operator short() const;
+    explicit operator int() const;
+    explicit operator long() const;
+    explicit operator long long() const;
+    explicit operator unsigned char() const;
+    explicit operator unsigned short() const;
+    explicit operator unsigned int() const;
+    explicit operator unsigned long() const;
+    explicit operator unsigned long long() const;
+    explicit operator bool() const;
+    explicit operator float() const;
+    explicit operator double() const;
 
     void swap(BigInt& rhs);
 
@@ -168,11 +137,13 @@ _bigint_operator_ui(unsigned int);
 _bigint_operator_ui(unsigned long);
 _bigint_operator_ui(unsigned long long);
 
-BigInt::operator bool() { return gmp_mpz.operator bool(); }
+BigInt::operator std::string() const { return gmp_mpz.get_str(); }
 
-BigInt::operator float() { return gmp_mpz.get_d(); }
+BigInt::operator bool() const { return gmp_mpz.operator bool(); }
 
-BigInt::operator double() { return gmp_mpz.get_d(); }
+BigInt::operator float() const { return static_cast<float>(gmp_mpz.get_d()); }
+
+BigInt::operator double() const { return gmp_mpz.get_d(); }
 
 void BigInt::swap(BigInt& rhs) { this->gmp_mpz.swap(rhs.gmp_mpz); }
 
@@ -211,7 +182,7 @@ const BigInt BigInt::operator++(int) {
 }
 BigInt BigInt::operator~() { return BigInt(gmp_mpz); }
 
-BigInt& BigInt::operator=(const BigInt& rhs){
+BigInt& BigInt::operator=(const BigInt& rhs) {
     gmp_mpz = rhs.gmp_mpz;
     return *this;
 }
@@ -271,7 +242,7 @@ int BigInt::sign(const BigInt& op) { return sgn(op.gmp_mpz); }
 
 BigInt BigInt::abs(const BigInt& base) { return BigInt(::abs(base.gmp_mpz)); }
 BigInt BigInt::nabs(const BigInt& base) { return (sign(base) < 0 ? base : -base); }
-BigInt BigInt::sqrt(const BigInt& root) { return BigInt(::sqrt(root.gmp_mpz));}
+BigInt BigInt::sqrt(const BigInt& root) { return BigInt(::sqrt(root.gmp_mpz)); }
 BigInt BigInt::pow(const BigInt& base, unsigned long long power) {
     BigInt op = 1;
     while (power--) op *= base;
@@ -279,6 +250,22 @@ BigInt BigInt::pow(const BigInt& base, unsigned long long power) {
 }
 
 void swap(BigInt& lhs, BigInt& rhs) { lhs.swap(rhs); }
+// const BigInt operator ^(const BigInt& lhs, const BigInt& rhs) { return BigInt::pow(lhs, rhs); }
+const BigInt operator+(const BigInt& lhs, const BigInt& rhs) { return BigInt(lhs.get_mpz_class() + rhs.get_mpz_class()); }
+const BigInt operator-(const BigInt& lhs, const BigInt& rhs) { return BigInt(lhs.get_mpz_class() - rhs.get_mpz_class()); }
+const BigInt operator/(const BigInt& lhs, const BigInt& rhs) { return BigInt(lhs.get_mpz_class() / rhs.get_mpz_class()); }
+const BigInt operator*(const BigInt& lhs, const BigInt& rhs) { return BigInt(lhs.get_mpz_class() * rhs.get_mpz_class()); }
+const BigInt operator%(const BigInt& lhs, const BigInt& rhs) { return BigInt(lhs.get_mpz_class() % rhs.get_mpz_class()); }
+const BigInt operator<<(const BigInt& lhs, const long long& rhs) { return BigInt(lhs.get_mpz_class() << rhs); }
+const BigInt operator>>(const BigInt& lhs, const long long& rhs) { return BigInt(lhs.get_mpz_class() >> rhs); }
+const BigInt operator^(const BigInt& lhs, const BigInt& rhs) { return BigInt(lhs.get_mpz_class() ^ rhs.get_mpz_class()); }
+const BigInt operator&(const BigInt& lhs, const BigInt& rhs) { return BigInt(lhs.get_mpz_class() & rhs.get_mpz_class()); }
+const BigInt operator|(const BigInt& lhs, const BigInt& rhs) { return BigInt(lhs.get_mpz_class() | rhs.get_mpz_class()); }
+
+// Global value
+const BigInt zero;
+const BigInt one = 1;
+const BigInt minusOne = ~0;
 
 #undef _bigint_init
 #undef _bigint_operator
